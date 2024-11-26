@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Notedify_recyclerview</string>
+    <string name="app_name">NotedifyWithFirebase</string>
+    <string-array name="category_list">
+        <item>Interesting Idea</item>
+        <item>Personal</item>
+        <item>Work</item>
+    </string-array>
 </resources>
