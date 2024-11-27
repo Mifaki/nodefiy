@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093962631100",
+    "project_id": "notedify-search",
+    "storage_bucket": "notedify-search.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093962631100:android:1511cdc2a9b80e491acdb9",
+        "android_client_info": {
+          "package_name": "com.example.notedify_recyclerview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlx9aeJediy-66iIJkVR7Hs97-qWADWN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
