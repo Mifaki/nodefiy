@@ -29,6 +29,10 @@
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".SelectCategoryActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
