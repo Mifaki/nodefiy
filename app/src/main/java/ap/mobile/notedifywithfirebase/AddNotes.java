@@ -134,6 +134,7 @@ public class AddNotes extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         saveNoteAndNavigateBack();
     }
 }
