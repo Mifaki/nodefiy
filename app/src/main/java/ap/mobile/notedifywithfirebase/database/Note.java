@@ -6,16 +6,18 @@ public class Note {
     private String content;
     private long timestamp;
     private String category;
+    private boolean isPlaceholder;
 
     public Note() {
         // Constructor kosong diperlukan oleh Firebase
     }
 
-    public Note(String title, String content, String category) {
+    public Note(String title, String content, String category, boolean isPlaceholder) {
         this.title = title;
         this.content = content;
         this.category = category;
         this.timestamp = System.currentTimeMillis();
+        this.isPlaceholder = isPlaceholder;
     }
 
     // Getters dan setters
@@ -29,4 +31,6 @@ public class Note {
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
+    public boolean getIsPlaceholder() { return isPlaceholder; }
+    public void setIsPlaceholder(boolean isPlaceholder) { this.isPlaceholder = isPlaceholder; }
 }
