@@ -19,6 +19,7 @@ import ap.mobile.notedifywithfirebase.database.Note;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddNotes extends AppCompatActivity {
     private EditText titleEditText;
@@ -133,6 +134,7 @@ public class AddNotes extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         saveNoteAndNavigateBack();
     }
 }

@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.rvIdeas);
         userNoteCount = findViewById(R.id.userNoteCount);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         noteList = new ArrayList<>();
         adapter =  new NoteAdapter(this, noteList);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Anda dapat menambahkan aksi di sini, seperti membuka halaman baru
                 // Sebagai contoh, membuka activity untuk menambah note baru
-                Intent intent = new Intent(MainActivity.this, AddNotes.class);
+                Intent intent = new Intent(MainActivity.this, SelectCategoryActivity.class);
                 startActivity(intent);
                 Toast.makeText(MainActivity.this, "FAB Clicked", Toast.LENGTH_SHORT).show();
             }
