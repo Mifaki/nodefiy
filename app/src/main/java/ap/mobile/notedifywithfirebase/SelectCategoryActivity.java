@@ -48,7 +48,7 @@ public class SelectCategoryActivity extends AppCompatActivity {
 
         cvBuy.setOnClickListener(v -> {
             Intent intent = new Intent(SelectCategoryActivity.this, AddNotes.class);
-            intent.putExtra("NOTE_CATEGORY", "Buy Something");
+            intent.putExtra("NOTE_CATEGORY", "Buying Something");
             startActivity(intent);
             finish();
         });

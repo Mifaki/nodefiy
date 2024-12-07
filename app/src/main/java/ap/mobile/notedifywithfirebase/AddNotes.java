@@ -1,6 +1,8 @@
 package ap.mobile.notedifywithfirebase;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spannable;
@@ -101,7 +103,7 @@ public class AddNotes extends AppCompatActivity {
                 Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
             } else {
                 // Create new note
-                Note note = new Note(title, content, "General");
+                Note note = new Note(title, content, getIntent().getStringExtra("NOTE_CATEGORY"));
                 String id = databaseReference.push().getKey();
                 note.setId(id);
 
@@ -114,7 +116,9 @@ public class AddNotes extends AppCompatActivity {
                 });
             }
         }
-        finish(); // Kembali ke halaman sebelumnya
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void applyTextStyle(String style) {
