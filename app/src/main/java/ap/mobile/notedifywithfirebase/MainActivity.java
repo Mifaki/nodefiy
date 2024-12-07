@@ -3,6 +3,7 @@ package ap.mobile.notedifywithfirebase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Note> noteList;
     private DatabaseReference notesRef;
     private TextView userNoteCount;
+    private ImageButton searchIcon2;
     private FloatingActionButton fab; // Deklarasikan FloatingActionButton
 
     @Override
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        searchIcon2 = findViewById(R.id.searchIcon2);
         recyclerView = findViewById(R.id.rvIdeas);
         userNoteCount = findViewById(R.id.userNoteCount);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -58,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SelectCategoryActivity.class);
                 startActivity(intent);
                 Toast.makeText(MainActivity.this, "FAB Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        searchIcon2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 
