@@ -123,19 +123,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (ideasList.isEmpty()) {
-                    ideasList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Interesting Ideas"));
+                    ideasList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Interesting Ideas", true));
                 }
                 if (buyList.isEmpty()) {
-                    buyList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Buying Something"));
+                    buyList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Buying Something", true));
                 }
                 if (goalList.isEmpty()) {
-                    goalList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Goals"));
+                    goalList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Goals", true));
                 }
                 if (guidanceList.isEmpty()) {
-                    guidanceList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Guidance"));
+                    guidanceList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Guidance", true));
                 }
                 if (routineList.isEmpty()) {
-                    routineList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Routine Tasks"));
+                    routineList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Routine Tasks", true));
                 }
 
                 ideasAdapter.notifyDataSetChanged();

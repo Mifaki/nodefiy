@@ -65,6 +65,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.noteTitle.setText(note.getTitle());
         holder.noteContent.setText(note.getContent());
 
+        if (note.getIsPlaceholder()) {
+            holder.deleteButton.setVisibility(View.GONE); // Sembunyikan tombol delete
+        } else {
+            holder.deleteButton.setVisibility(View.VISIBLE); // Tampilkan tombol delete
+        }
+
         int randomIndex = getNextRandomIndex(colors.length, previousIndex);
         holder.cvNote.setCardBackgroundColor(colors[randomIndex]);
         previousIndex = randomIndex;
@@ -93,15 +99,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                     Toast.makeText(context, "Failed to delete note", Toast.LENGTH_SHORT).show();
                 }
             });
-        });
-
-        // Handle item click (optional)
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, AddNotes.class);
-            intent.putExtra("NOTE_ID", note.getId());
-            intent.putExtra("NOTE_TITLE", note.getTitle());
-            intent.putExtra("NOTE_CONTENT", note.getContent());
-            context.startActivity(intent);
         });
     }
 

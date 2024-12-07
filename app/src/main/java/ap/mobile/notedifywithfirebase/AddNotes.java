@@ -103,7 +103,7 @@ public class AddNotes extends AppCompatActivity {
                 Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
             } else {
                 // Create new note
-                Note note = new Note(title, content, getIntent().getStringExtra("NOTE_CATEGORY"));
+                Note note = new Note(title, content, getIntent().getStringExtra("NOTE_CATEGORY"), false);
                 String id = databaseReference.push().getKey();
                 note.setId(id);
 
