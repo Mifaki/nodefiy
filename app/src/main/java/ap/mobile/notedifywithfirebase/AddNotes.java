@@ -19,6 +19,7 @@ import ap.mobile.notedifywithfirebase.database.Note;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddNotes extends AppCompatActivity {
     private EditText titleEditText;
