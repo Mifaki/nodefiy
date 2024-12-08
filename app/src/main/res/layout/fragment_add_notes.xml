@@ -70,6 +70,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <ImageView
+        android:id="@+id/ivCapturedImage"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <EditText
         android:id="@+id/noteContentEditText"
         android:layout_width="match_parent"
@@ -81,7 +90,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/ivCapturedImage" />
 
     <!-- Bottom Bar -->
     <LinearLayout
@@ -160,4 +169,5 @@
                 android:src="@drawable/ic_more_options" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

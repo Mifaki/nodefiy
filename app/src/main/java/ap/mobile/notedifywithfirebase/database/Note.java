@@ -10,6 +10,7 @@ public class Note {
     private String category;
     private boolean isPlaceholder;
     private List<String> sharedTo;
+    private String imageUrl;
 
     public Note() {
         // Empty constructor needed by Firebase
@@ -38,4 +39,10 @@ public class Note {
     public void setIsPlaceholder(boolean isPlaceholder) { this.isPlaceholder = isPlaceholder; }
     public List<String> getSharedTo() { return sharedTo; }
     public void setSharedTo(List<String> sharedTo) { this.sharedTo = sharedTo; }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

@@ -17,8 +17,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ap.mobile.notedifywithfirebase.database.Note;
 import ap.mobile.notedifywithfirebase.homepage.NoteAdapter;
@@ -34,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton searchIcon2;
     private FloatingActionButton fab; // Deklarasikan FloatingActionButton
     private int totalNotes = 0;
+    private TextView dailyQuote, dailyQuoteAuthor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         rvGoals = findViewById(R.id.rvGoals);
         rvGuidance = findViewById(R.id.rvGuidance);
         rvRoutine = findViewById(R.id.rvRoutine);
+
+        dailyQuote = findViewById(R.id.dailyQuote);
+        dailyQuoteAuthor = findViewById(R.id.dailyQuoteAuthor);
 
         rvIdeas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvBuy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -96,8 +110,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        fetchDailyQuote();
         loadNotes();
     }
+
+    private void fetchDailyQuote() {
+        String url = "https://zenquotes.io/api/today";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            JSONObject quoteObject = response.getJSONObject(0);
+                            String quote = quoteObject.getString("q");
+                            String author = quoteObject.getString("a");
+                            dailyQuote.setText("\"" + quote + "\"");
+                            dailyQuoteAuthor.setText("- " + author);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dailyQuote.setText("Failed to load quote.");
+                    }
+                }
+        );
+        Volley.newRequestQueue(this).add(jsonArrayRequest);
+    }
+
 
     private void loadNotes() {
         notesRef.addValueEventListener(new ValueEventListener() {
