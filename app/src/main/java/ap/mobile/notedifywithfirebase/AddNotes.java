@@ -11,17 +11,25 @@ import java.util.ArrayList;
 public class AddNotes extends AppCompatActivity {
     private AddNotesFragment addNotesFragment;
     private SharedToFragment sharedToFragment;
+    private String imageUrl, getImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
 
+        getImageUrl = getIntent().getStringExtra("imageUrl");
+
+        if (getImageUrl != null) {
+            imageUrl = getImageUrl;
+        }
+
         addNotesFragment = AddNotesFragment.newInstance(
                 getIntent().getStringExtra("NOTE_ID"),
                 getIntent().getStringExtra("NOTE_TITLE"),
                 getIntent().getStringExtra("NOTE_CONTENT"),
-                getIntent().getStringExtra("NOTE_CATEGORY")
+                getIntent().getStringExtra("NOTE_CATEGORY"),
+                imageUrl
         );
 
         sharedToFragment = new SharedToFragment();

@@ -91,6 +91,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             intent.putExtra("NOTE_TITLE", note.getTitle());
             intent.putExtra("NOTE_CONTENT", note.getContent());
             intent.putExtra("NOTE_CATEGORY", note.getCategory());
+            intent.putExtra("imageUrl", note.getImageUrl());
             ArrayList<String> sharedToList = note.getSharedTo() != null ? new ArrayList<>(note.getSharedTo()) : new ArrayList<>();
             intent.putStringArrayListExtra("NOTE_SHARED_TO", sharedToList);
             context.startActivity(intent);

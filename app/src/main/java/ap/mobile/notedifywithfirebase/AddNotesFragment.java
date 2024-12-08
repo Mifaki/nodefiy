@@ -1,6 +1,7 @@
 package ap.mobile.notedifywithfirebase;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spannable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,18 +38,22 @@ public class AddNotesFragment extends Fragment {
     private TextView lastEditedText;
     private SimpleDateFormat timeFormat;
     private DatabaseReference databaseReference;
-    private String noteId;
-    private ImageButton backButton, boldButton, italicButton;
+    private String noteId, noteTitle, noteContent, noteCategory;
+    private ImageButton backButton, boldButton, italicButton, uploadButton;
+    private ImageView ivCapturedImage;
     private ImageButton ibShared;
     private long lastEditedTimestamp;
+    private String imageUrl, getImageUrl;
+    private boolean isCaptured = false;
 
-    public static AddNotesFragment newInstance(String noteId, String title, String content, String category) {
+    static AddNotesFragment newInstance(String noteId, String title, String content, String category, String imageUrl) {
         AddNotesFragment fragment = new AddNotesFragment();
         Bundle args = new Bundle();
         args.putString("NOTE_ID", noteId);
         args.putString("NOTE_TITLE", title);
         args.putString("NOTE_CONTENT", content);
         args.putString("NOTE_CATEGORY", category);
+        args.putString("imageUrl", imageUrl);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,9 +74,20 @@ public class AddNotesFragment extends Fragment {
         // Check if it's edit mode
         if (getArguments() != null) {
             noteId = getArguments().getString("NOTE_ID");
+            noteTitle = getArguments().getString("NOTE_TITLE");
+            noteContent = getArguments().getString("NOTE_CONTENT");
+            noteCategory = getArguments().getString("NOTE_CATEGORY");
             if (noteId != null) {
                 String title = getArguments().getString("NOTE_TITLE");
                 String content = getArguments().getString("NOTE_CONTENT");
+
+                getImageUrl = getArguments().getString("imageUrl");
+
+                if(getImageUrl != null) {
+                    imageUrl = getImageUrl;
+                    isCaptured = true;
+                    Toast.makeText(getContext(), getImageUrl, Toast.LENGTH_SHORT).show();
+                }
 
                 titleEditText.setText(title);
                 noteContentEditText.setText(content);
@@ -77,6 +95,14 @@ public class AddNotesFragment extends Fragment {
             } else {
                 updateLastEditedTime();
             }
+        }
+
+        if (isCaptured) {
+            Toast.makeText(getContext(), "Captured " + imageUrl, Toast.LENGTH_SHORT).show();
+            Glide.with(this).load(imageUrl).into(ivCapturedImage);
+            ivCapturedImage.setVisibility(View.VISIBLE);
+        } else {
+            ivCapturedImage.setVisibility(View.GONE);
         }
 
         return view;
@@ -90,6 +116,8 @@ public class AddNotesFragment extends Fragment {
         ibShared = view.findViewById(R.id.ibShared);
         boldButton = view.findViewById(R.id.boldButton);
         italicButton = view.findViewById(R.id.italicButton);
+        uploadButton = view.findViewById(R.id.uploadImageButton);
+        ivCapturedImage = view.findViewById(R.id.ivCapturedImage);
     }
 
     private void setupClickListeners() {
@@ -101,6 +129,15 @@ public class AddNotesFragment extends Fragment {
             if (getActivity() instanceof AddNotes) {
                 ((AddNotes) getActivity()).switchToSharedFragment();
             }
+        });
+
+        uploadButton.setOnClickListener(v -> {
+            Intent intent = new Intent (getActivity(), CameraActivity.class);
+            intent.putExtra("NOTE_ID", noteId);
+            intent.putExtra("NOTE_TITLE", noteTitle);
+            intent.putExtra("NOTE_CONTENT", noteContent);
+            intent.putExtra("NOTE_CATEGORY", noteCategory);
+            startActivity(intent);
         });
 
         TextWatcher textWatcher = new TextWatcher() {
@@ -139,6 +176,9 @@ public class AddNotesFragment extends Fragment {
                 databaseReference.child(noteId).child("content").setValue(content);
                 databaseReference.child(noteId).child("timestamp").setValue(lastEditedTimestamp);
                 databaseReference.child(noteId).child("category").setValue(getArguments().getString("NOTE_CATEGORY"));
+                if (getImageUrl != null) {
+                    databaseReference.child(noteId).child("imageUrl").setValue(imageUrl);
+                }
                 Toast.makeText(requireContext(), "Note updated", Toast.LENGTH_SHORT).show();
             } else {
                 Note note = new Note(title, content,
@@ -146,6 +186,7 @@ public class AddNotesFragment extends Fragment {
                         false, new ArrayList<>());
 
                 note.setTimestamp(lastEditedTimestamp);
+
 
                 String id = databaseReference.push().getKey();
                 note.setId(id);
