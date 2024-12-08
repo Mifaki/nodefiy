@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import ap.mobile.notedifywithfirebase.database.Note;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -39,12 +40,13 @@ public class AddNotesFragment extends Fragment {
     private ImageButton ibShared;
     private long lastEditedTimestamp;
 
-    public static AddNotesFragment newInstance(String noteId, String title, String content) {
+    public static AddNotesFragment newInstance(String noteId, String title, String content, String category) {
         AddNotesFragment fragment = new AddNotesFragment();
         Bundle args = new Bundle();
         args.putString("NOTE_ID", noteId);
         args.putString("NOTE_TITLE", title);
         args.putString("NOTE_CONTENT", content);
+        args.putString("NOTE_CATEGORY", category);
         fragment.setArguments(args);
         return fragment;
     }
@@ -136,11 +138,12 @@ public class AddNotesFragment extends Fragment {
                 databaseReference.child(noteId).child("title").setValue(title);
                 databaseReference.child(noteId).child("content").setValue(content);
                 databaseReference.child(noteId).child("timestamp").setValue(lastEditedTimestamp);
+                databaseReference.child(noteId).child("category").setValue(getArguments().getString("NOTE_CATEGORY"));
                 Toast.makeText(requireContext(), "Note updated", Toast.LENGTH_SHORT).show();
             } else {
                 Note note = new Note(title, content,
                         getArguments() != null ? getArguments().getString("NOTE_CATEGORY") : null,
-                        false);
+                        false, new ArrayList<>());
 
                 note.setTimestamp(lastEditedTimestamp);
 
