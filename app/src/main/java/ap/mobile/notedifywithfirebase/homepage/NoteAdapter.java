@@ -4,7 +4,6 @@ import static com.google.android.gms.common.util.CollectionUtils.listOf;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -78,17 +78,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.cvNote.setCardBackgroundColor(colors[randomIndex]);
         previousIndex = randomIndex;
 
-        // Handle edit button click
+        if (note.getSharedTo() != null && !note.getSharedTo().isEmpty()) {
+            holder.linearLayout.setVisibility(View.VISIBLE);
+            holder.tvShared.setText("Shared to " + note.getSharedTo().size() + " people");
+        } else {
+            holder.linearLayout.setVisibility(View.GONE);
+        }
+
         holder.editButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, AddNotes.class);
             intent.putExtra("NOTE_ID", note.getId());
             intent.putExtra("NOTE_TITLE", note.getTitle());
             intent.putExtra("NOTE_CONTENT", note.getContent());
             intent.putExtra("NOTE_CATEGORY", note.getCategory());
+            ArrayList<String> sharedToList = note.getSharedTo() != null ? new ArrayList<>(note.getSharedTo()) : new ArrayList<>();
+            intent.putStringArrayListExtra("NOTE_SHARED_TO", sharedToList);
             context.startActivity(intent);
         });
 
-        // Handle delete button click
         holder.deleteButton.setOnClickListener(v -> {
             DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://notedifycreatenotes-default-rtdb.asia-southeast1.firebasedatabase.app")
                     .getReference("notes")

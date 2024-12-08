@@ -134,19 +134,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (ideasList.isEmpty()) {
-                    ideasList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Interesting Ideas", true));
+                    ideasList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Interesting Ideas", true, new ArrayList<>()));
                 }
                 if (buyList.isEmpty()) {
-                    buyList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Buying Something", true));
+                    buyList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Buying Something", true, new ArrayList<>()));
                 }
                 if (goalList.isEmpty()) {
-                    goalList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Goals", true));
+                    goalList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Goals", true, new ArrayList<>()));
                 }
                 if (guidanceList.isEmpty()) {
-                    guidanceList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Guidance", true));
+                    guidanceList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Guidance", true, new ArrayList<>()));
                 }
                 if (routineList.isEmpty()) {
-                    routineList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Routine Tasks", true));
+                    routineList.add(new Note("You haven't made any notes yet", "Made a note to organize your plans", "Routine Tasks", true, new ArrayList<>()));
                 }
 
                 ideasAdapter.notifyDataSetChanged();

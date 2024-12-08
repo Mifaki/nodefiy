@@ -111,7 +111,7 @@
 
                 <TextView
                     android:id="@+id/tvViewIdeas"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_medium"
@@ -142,7 +142,7 @@
 
                 <TextView
                     android:id="@+id/tvViewBuy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_medium"
@@ -176,7 +176,7 @@
 
                 <TextView
                     android:id="@+id/tvViewGoals"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_medium"
