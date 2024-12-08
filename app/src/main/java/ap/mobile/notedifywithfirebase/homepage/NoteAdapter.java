@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,9 +67,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.noteContent.setText(note.getContent());
 
         if (note.getIsPlaceholder()) {
-            holder.deleteButton.setVisibility(View.GONE); // Sembunyikan tombol delete
+            holder.deleteButton.setVisibility(View.GONE);
+            holder.linearLayout.setVisibility(View.GONE);
         } else {
-            holder.deleteButton.setVisibility(View.VISIBLE); // Tampilkan tombol delete
+            holder.deleteButton.setVisibility(View.VISIBLE);
+            holder.linearLayout.setVisibility(View.VISIBLE);
         }
 
         int randomIndex = getNextRandomIndex(colors.length, previousIndex);
@@ -108,9 +111,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView noteTitle, noteContent;
+        TextView noteTitle, noteContent, tvShared;
         ImageButton editButton, deleteButton;
         CardView cvNote;
+        LinearLayout linearLayout;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -119,6 +123,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             cvNote = itemView.findViewById(R.id.cvNote);
+            linearLayout = itemView.findViewById(R.id.linearShared);
+            tvShared = itemView.findViewById(R.id.tvShared);
+
         }
     }
 
